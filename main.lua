@@ -19,13 +19,11 @@ end
 function OnWorldTick(World, TimeDelta)
     local MoveMob = function(Entity)
         local Monster = tolua.cast(Entity,"cMonster")
-        Monster:SetPitch(PlayerID:GetPitch())
-        Monster:SetYaw(PlayerID:GetYaw())
+        Monster:SetPosition(PlayerID:GetPosX(), PlayerID:GetPosY() + 0.2, PlayerID:GetPosZ())
         Monster:MoveToPosition(PlayerID:GetPosition() + PlayerID:GetLookVector())
     end
     local Player = function(Player)
         PlayerID = Player
-        pos = Player:GetPosition()
         World:DoWithEntityByID(mobid[Player:GetName()], MoveMob)
     end
     World:ForEachPlayer(Player)

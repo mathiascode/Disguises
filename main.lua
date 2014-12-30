@@ -1,11 +1,11 @@
 mobid = {}
-timer = {}
 
 function Initialize(Plugin)
 	Plugin:SetName("DisguiseCraft")
 	Plugin:SetVersion(0)
 
 	cPluginManager.AddHook(cPluginManager.HOOK_WORLD_TICK, OnWorldTick)
+	cPluginManager:AddHook(cPluginManager.HOOK_TAKE_DAMAGE, OnTakeDamage);	
     cPluginManager.BindCommand("/d",      "disguisecraft.disguise", HandleDisguiseCommand, "- Disguise as a mob");
     cPluginManager.BindCommand("/ud",      "disguisecraft.undisguise", HandleUnDisguiseCommand, "- Undisguise");
 
@@ -54,3 +54,22 @@ function HandleUnDisguiseCommand(Split, Player)
     return true
 end
              
+             
+function OnTakeDamage(Receiver, TDI)
+    if TDI.Attacker == nil then
+        return false
+    elseif Receiver:IsPlayer() and TDI.Attacker:IsMob() then
+        Player = tolua.cast(Receiver,"cPlayer")
+        Mob = tolua.cast(TDI.Attacker, "cMonster")
+        if Mob:GetUniqueID() == mobid[Player:GetName()] then
+            return true
+        end
+    elseif Receiver:IsMob() and TDI.Attacker:IsPlayer() then
+        Mob = tolua.cast(Receiver, "cMonster")
+        Player = tolua.cast(TDI.Attacker, "cPlayer")    
+        if Mob:GetUniqueID() == mobid[Player:GetName()] then
+            return true
+        end
+    end
+end    
+                 

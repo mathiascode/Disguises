@@ -49,10 +49,7 @@ end
 
 function HandleUnDisguiseCommand(Split, Player)
     Player:SetVisible(true)
-    local Delete = function(Entity)
-        Entity:Destroy()
-    end
-    Player:GetWorld():DoWithEntityByID(mobid[Player:GetName()], Delete)
+    Player:GetWorld():DoWithEntityByID(mobid[Player:GetName()], cEntity.Destroy)
     mobid[Player:GetName()] = nil
     return true
 end

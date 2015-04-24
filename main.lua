@@ -24,7 +24,10 @@ function OnWorldTick(World, TimeDelta)
     end
     local Player = function(Player)
         PlayerID = Player
-        World:DoWithEntityByID(mobid[Player:GetName()], MoveMob)
+        local entityId = mobid[Player:GetName()];
+        if entityId ~= nil then
+            World:DoWithEntityByID(mobid[Player:GetName()], MoveMob)
+        end
     end
     World:ForEachPlayer(Player)
 end

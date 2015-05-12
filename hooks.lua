@@ -3,6 +3,12 @@ function OnWorldTick(World, TimeDelta)
         local Monster = tolua.cast(Entity,"cMonster")
         Monster:TeleportToCoords(PlayerID:GetPosX(), PlayerID:GetPosY(), PlayerID:GetPosZ())
         Monster:MoveToPosition(PlayerID:GetPosition() + PlayerID:GetLookVector())
+        if Monster:GetHealth() == 0 then
+			PlayerID:SendMessage("Your mob is death, you've been undisguised")
+			PlayerID:SetVisible(true)
+			Monster:Destroy()
+			mobid[Player:GetName()] = nil
+		end
     end
     local Player = function(Player)
         PlayerID = Player
@@ -13,8 +19,7 @@ function OnWorldTick(World, TimeDelta)
     end
     World:ForEachPlayer(Player)
 end
-             
-             
+
 function OnTakeDamage(Receiver, TDI)
     if TDI.Attacker == nil then
         return false
@@ -32,7 +37,7 @@ function OnTakeDamage(Receiver, TDI)
         end
     end
 end    
-                 
+
 function OnPlayerDestroyed(Player)
     if mobid[Player:GetName()] ~= nil then
         Player:GetWorld():DoWithEntityByID(mobid[Player:GetName()], cEntity.Destroy)

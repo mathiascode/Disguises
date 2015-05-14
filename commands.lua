@@ -11,7 +11,7 @@ function HandleDisguiseCommand(Split, Player)
 			end    
 			Player:SetVisible(false)
 			mobid[Player:GetName()] = Player:GetWorld():SpawnMob(Player:GetPosX(), Player:GetPosY(), Player:GetPosZ(), Mob)
-			Player:SendMessageInfo("You have been disguised as a "..Split[2])
+			Player:SendMessageSuccess("You have been disguised as a "..Split[2])
 		end
 	end
 	return true
@@ -22,9 +22,9 @@ function HandleUnDisguiseCommand(Split, Player)
 		Player:SetVisible(true)
 		Player:GetWorld():DoWithEntityByID(mobid[Player:GetName()], cEntity.Destroy)
 		mobid[Player:GetName()] = nil
-		Player:SendMessageInfo("You have been undisguised")
+		Player:SendMessageSuccess("You have been undisguised")
 	else   
-		Player:SendMessageFailure(cChatColor.Yellow.."You're not disguised") 
+		Player:SendMessageFailure("You're not disguised") 
 	end    
 	return true
 end

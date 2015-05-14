@@ -4,7 +4,7 @@ function OnWorldTick(World, TimeDelta)
 		Monster:TeleportToCoords(PlayerID:GetPosX(), PlayerID:GetPosY(), PlayerID:GetPosZ())
 		Monster:MoveToPosition(PlayerID:GetPosition() + PlayerID:GetLookVector())
 		if Monster:GetHealth() == 0 then
-			PlayerID:SendMessageInfo("Your mob is dead, you've been undisguised")
+			PlayerID:SendMessageWarning("Your mob is dead, you've been undisguised")
 			PlayerID:SetVisible(true)
 			Monster:Destroy()
 			mobid[Player:GetName()] = nil

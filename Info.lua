@@ -6,7 +6,7 @@ g_PluginInfo =
 {
 	Name = "DisguiseCraft",
 	Version = "0.1",
-	Description = [[Plugin for Cuberite that allows you to disguise as a mob. It's not like similar plugins for Bukkit, due to Cuberite's limitations. You see the mob and it doesn't always follow you, but I'll try to make the best inside Cuberite limitations.]],
+	Description = [[Plugin for Cuberite that allows you to disguise as a mob. It's a little different from similar Bukkit plugins, due to Cuberite's limitations.]],
 
 	Commands =
 	{

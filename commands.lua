@@ -1,6 +1,6 @@
 function HandleDisguiseCommand(Split, Player)
 	if Split[2] == nil then
-		Player:SendMessageInfo("Usage: "..Split[1].." [mobtype]")
+		Player:SendMessageInfo("Usage: "..Split[1].." <mobtype>")
 	else
 		Mob = cMonster:StringToMobType(Split[2])
 		if Mob == mtInvalidType then

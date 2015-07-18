@@ -6,7 +6,7 @@ g_PluginInfo =
 {
 	Name = "DisguiseCraft",
 	Version = "0.1",
-	Description = [[Plugin for MCServer that allows you to disguise as a mob.]],
+	Description = [[Plugin for Cuberite that allows you to disguise as a mob. It's a little different from similar Bukkit plugins, due to Cuberite's limitations.]],
 
 	Commands =
 	{

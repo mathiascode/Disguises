@@ -1,6 +1,6 @@
 function HandleDisguiseCommand(Split, Player)
 	if Split[2] == nil then
-		Player:SendMessageInfo("Usage: "..Split[1].." <mobtype[:baby]>")
+		Player:SendMessageInfo("Usage: "..Split[1].." <mobtype[:baby]> [customname ...]")
 		Player:SendMessageInfo("Available types: bat, blaze, cavespider, chicken, cow, creeper, enderdragon, enderman, ghast, giant, guardian, horse, irongolem, magmacube, mooshroom, ocelot, pig, rabbit, sheep, silverfish, skeleton, slime, snowgolem, spider, squid, villager, witch, wither, wolf, zombie, zombiepigman")
 	else
 		IsBaby = false
@@ -23,6 +23,17 @@ function HandleDisguiseCommand(Split, Player)
 			end    
 			Player:SetVisible(false)
 			mobid[Player:GetName()] = Player:GetWorld():SpawnMob(Player:GetPosX(), Player:GetPosY(), Player:GetPosZ(), MobType, IsBaby)
+
+			Player:GetWorld():DoWithEntityByID(
+				mobid[Player:GetName()],
+				function(MobFunctions)
+					SetMobFunction = tolua.cast(MobFunctions, "cMonster")
+					SetMobFunction:SetMaxHealth(999999)
+					SetMobFunction:SetHealth(999999)
+					SetMobFunction:SetCustomName(table.concat( Split , " " , 3 ))
+				end
+			)
+
 			StartsWith = string.sub(MobString, 1, 1)
 			if StartsWith == "e" or StartsWith == "i" or StartsWith == "o" or StartsWith == "E" or StartsWith == "I" or StartsWith == "O" then
 				Player:SendMessageSuccess("You have been disguised as an "..string.lower(MobString))

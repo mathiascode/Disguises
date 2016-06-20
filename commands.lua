@@ -3,8 +3,8 @@ function HandleDisguiseCommand(Split, Player)
 		Player:SendMessageInfo("Usage: "..Split[1].." <mobtype[:baby]> [customname ...]")
 		Player:SendMessageInfo("Available types: bat, blaze, cavespider, chicken, cow, creeper, enderdragon, enderman, ghast, giant, guardian, horse, irongolem, magmacube, mooshroom, ocelot, pig, rabbit, sheep, silverfish, skeleton, slime, snowgolem, spider, squid, villager, witch, wither, wolf, zombie, zombiepigman")
 	else
-		IsBaby = false
-		MobString = Split[2]
+		local IsBaby = false
+		local MobString = Split[2]
 		
 		if string.find(MobString, ":") then
 			MobString, data = string.match(MobString, "(%w+):(%w+)")
@@ -13,7 +13,7 @@ function HandleDisguiseCommand(Split, Player)
 			end
 		end
 
-		MobType = cMonster:StringToMobType(MobString)
+		local MobType = cMonster:StringToMobType(MobString)
 
 		if MobType == mtInvalidType then
 			Player:SendMessageFailure("That disguise type was not recognized")
@@ -28,8 +28,6 @@ function HandleDisguiseCommand(Split, Player)
 				mobid[Player:GetName()],
 				function(MobFunctions)
 					SetMobFunction = tolua.cast(MobFunctions, "cMonster")
-					SetMobFunction:SetMaxHealth(999999)
-					SetMobFunction:SetHealth(999999)
 					SetMobFunction:SetCustomName(table.concat( Split , " " , 3 ))
 				end
 			)

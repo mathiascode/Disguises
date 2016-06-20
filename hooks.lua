@@ -1,20 +1,21 @@
 function OnWorldTick(World, TimeDelta)
 	local MoveMob = function(Entity)
 		local Monster = tolua.cast(Entity,"cMonster")
-		Monster:TeleportToCoords(PlayerID:GetPosX(), PlayerID:GetPosY(), PlayerID:GetPosZ())
-		Monster:MoveToPosition(PlayerID:GetPosition() + PlayerID:GetLookVector())
-		if Monster:GetHealth() == 0 then
-			PlayerID:SendMessageWarning("Your mob is dead, you've been undisguised")
-			PlayerID:SetVisible(true)
-			Monster:Destroy()
-			mobid[Player:GetName()] = nil
-		end
+		Monster:TeleportToCoords(PlayerID:GetPosX() + 1, PlayerID:GetPosY(), PlayerID:GetPosZ() + 1)
+		Monster:SetSpeed(0,0,0)
+		Monster:SetMaxHealth(99999)
+		Monster:SetHealth(99999)
 	end
 	local Player = function(Player)
 		PlayerID = Player
 		local entityId = mobid[Player:GetName()];
 		if entityId ~= nil then
 			World:DoWithEntityByID(mobid[Player:GetName()], MoveMob)
+		end
+		if Player:IsVisible() == true and entityId ~= nil then
+			Player:SendMessageInfo("You have been undisguised due to your visibility being set to true")
+			World:DoWithEntityByID(mobid[Player:GetName()], cEntity.Destroy)
+			mobid[Player:GetName()] = nil
 		end
 	end
 	World:ForEachPlayer(Player)
@@ -36,11 +37,18 @@ function OnTakeDamage(Receiver, TDI)
 			return true
 		end
 	end
-end    
+end
+
+function OnPlayerSpawned(Player)
+	if mobid[Player:GetName()] ~= nil then
+		Player:SetVisible(false)
+	end
+end
 
 function OnPlayerDestroyed(Player)
 	if mobid[Player:GetName()] ~= nil then
 		Player:GetWorld():DoWithEntityByID(mobid[Player:GetName()], cEntity.Destroy)
 		Player:SetVisible(true)
+		mobid[Player:GetName()] = nil
 	end
-end    
+end

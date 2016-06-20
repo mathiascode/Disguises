@@ -7,9 +7,10 @@ function Initialize(Plugin)
 	Plugin:SetName(g_PluginInfo.Name)
 	Plugin:SetVersion(g_PluginInfo.Version)
 
-	cPluginManager.AddHook(cPluginManager.HOOK_WORLD_TICK, OnWorldTick)
-	cPluginManager:AddHook(cPluginManager.HOOK_TAKE_DAMAGE, OnTakeDamage);
-	cPluginManager:AddHook(cPluginManager.HOOK_PLAYER_DESTROYED, OnPlayerDestroyed);
+	cPluginManager:AddHook(cPluginManager.HOOK_WORLD_TICK, OnWorldTick)
+	cPluginManager:AddHook(cPluginManager.HOOK_TAKE_DAMAGE, OnTakeDamage)
+	cPluginManager:AddHook(cPluginManager.HOOK_PLAYER_SPAWNED, OnPlayerSpawned)
+	cPluginManager:AddHook(cPluginManager.HOOK_PLAYER_DESTROYED, OnPlayerDestroyed)
 
 	RegisterPluginInfoCommands();
 
@@ -21,7 +22,7 @@ function OnDisable()
 	local RemoveMob = function(Player)
 		if mobid[Player:GetName()] ~= nil then
 			Player:GetWorld():DoWithEntityByID(mobid[Player:GetName()], cEntity.Destroy)
-			Player:SendMessageWarning("You've been undisguised because of server restart/reload")
+			Player:SendMessageWarning("You've been undisguised due to server reload")
 			Player:SetVisible(true)
 		end
 	end    

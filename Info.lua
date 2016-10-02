@@ -5,22 +5,22 @@
 g_PluginInfo =
 {
 	Name = "DisguiseCraft",
-	Version = "0.1",
-	Description = [[Plugin for Cuberite that allows you to disguise as a mob. It's a little different from similar Bukkit plugins, due to Cuberite's limitations.]],
+	Version = "1",
+	Description = [[Plugin for Cuberite that allows you to disguise as an entity.]],
 
 	Commands =
 	{
 		["/disguise"] =
 		{
 			Permission = "disguisecraft.disguise",
-			HelpString = "Allows you to disguise as a mob.",
+			HelpString = "Disguises you as an entity",
 			Handler = HandleDisguiseCommand,
 			Alias = { "/d", "/dis", }
 		},
 		["/undisguise"] =
 		{
 			Permission =  "disguisecraft.undisguise",
-			HelpString =  "Remove your mob disguise.",
+			HelpString =  "Removes your entity disguise",
 			Handler =  HandleUnDisguiseCommand,
 			Alias = { "/ud", "/undis", }
 		},

@@ -1,11 +1,17 @@
-DisguiseCraft
-=============
+Plugin for Cuberite that allows you to disguise as an entity.
 
-Plugin for Cuberite that allows you to disguise as a mob. It's a little different from similar Bukkit plugins, due to Cuberite's limitations.
+# Commands
 
-###Commands
+### General
+| Command | Permission | Description |
+| ------- | ---------- | ----------- |
+|/disguise | disguisecraft.disguise | Disguises you as an entity|
+|/undisguise | disguisecraft.undisguise | Removes your entity disguise|
 
-| Command | Aliases | Permission | Description |
-| ------- | ------- | ---------- | ----------- |
-|/disguise | /dis, /d | disguisecraft.disguise | Allows you to disguise as a mob.|
-|/undisguise | /undis, /ud | disguisecraft.undisguise | Remove your mob disguise.|
+
+
+# Permissions
+| Permissions | Description | Commands | Recommended groups |
+| ----------- | ----------- | -------- | ------------------ |
+| disguisecraft.disguise |  | `/disguise` |  |
+| disguisecraft.undisguise |  | `/undisguise` |  |

@@ -1,54 +1,64 @@
 function OnWorldTick(World, TimeDelta)
-	local MoveMob = function(Entity)
-		local Monster = tolua.cast(Entity,"cMonster")
-		Monster:TeleportToCoords(PlayerID:GetPosX() + 1, PlayerID:GetPosY(), PlayerID:GetPosZ() + 1)
-		Monster:SetSpeed(0,0,0)
-		Monster:SetMaxHealth(99999)
-		Monster:SetHealth(99999)
-	end
 	local Player = function(Player)
-		PlayerID = Player
-		local entityId = mobid[Player:GetName()];
-		if entityId ~= nil then
-			World:DoWithEntityByID(mobid[Player:GetName()], MoveMob)
+		local MoveEntity = function(Entity)
+			if Entity:IsMob() and Entity:GetMobType() == 53 or Entity:IsMob() and Entity:GetMobType() == 56 then
+				Entity:TeleportToCoords(Player:GetPosX() + 2.6, Player:GetPosY(), Player:GetPosZ() + 2.6)
+			elseif Entity:GetEntityType() == 7 then
+				Entity:TeleportToCoords(Player:GetPosX() + 1.2, Player:GetPosY(), Player:GetPosZ() + 1.2)
+			else
+				Entity:TeleportToCoords(Player:GetPosX() + 1.1, Player:GetPosY(), Player:GetPosZ() + 1.1)
+			end
+			Entity:SetSpeed(0,0,0)
+			Entity:SetMaxHealth(99999)
+			Entity:SetHealth(99999)
+			Entity:SetHeadYaw(Player:GetHeadYaw())
+			Entity:SetYaw(Player:GetYaw())
+			Entity:SetPitch(Player:GetPitch())
+			Player:SetVisible(false)
+			Player:SetInvulnerableTicks(5)
+			if Entity:GetPosY() < 0.1 then
+					DisguiseFor[Player:GetUUID()] = nil
+					Player:SetVisible(true)
+					Player:SendMessageInfo("Your visibility has been set to true due to your disguise disappearing")
+			end
 		end
-		if Player:IsVisible() == true and entityId ~= nil then
-			Player:SendMessageInfo("You have been undisguised due to your visibility being set to true")
-			World:DoWithEntityByID(mobid[Player:GetName()], cEntity.Destroy)
-			mobid[Player:GetName()] = nil
+		if DisguiseFor[Player:GetUUID()] ~= nil then
+			World:DoWithEntityByID(DisguiseFor[Player:GetUUID()], MoveEntity)
 		end
 	end
 	World:ForEachPlayer(Player)
 end
 
+function OnEntityChangingWorld(Entity, World)
+	local ChangeWorld = function(Disguise)
+		Disguise:MoveToWorld(World)
+	end
+	if Entity:IsPlayer() and DisguiseFor[Entity:GetUUID()] ~= nil then
+		Entity:GetWorld():DoWithEntityByID(DisguiseFor[Entity:GetUUID()], ChangeWorld)
+	end
+end
+
 function OnTakeDamage(Receiver, TDI)
-	if TDI.Attacker == nil then
-		return false
-	elseif Receiver:IsPlayer() and TDI.Attacker:IsMob() then
-		Player = tolua.cast(Receiver,"cPlayer")
-		Mob = tolua.cast(TDI.Attacker, "cMonster")
-		if Mob:GetUniqueID() == mobid[Player:GetName()] then
-			return true
-		end
-	elseif Receiver:IsMob() and TDI.Attacker:IsPlayer() then
-		Mob = tolua.cast(Receiver, "cMonster")
-		Player = tolua.cast(TDI.Attacker, "cPlayer")    
-		if Mob:GetUniqueID() == mobid[Player:GetName()] then
-			return true
-		end
+	if TDI.Attacker and TDI.Attacker:IsPlayer() and Receiver:GetUniqueID() == DisguiseFor[TDI.Attacker:GetUUID()] then
+		return true
+	end
+end
+
+function OnPlayerRightClickingEntity(Player, Entity)
+	if Entity:GetUniqueID() == DisguiseFor[Player:GetUUID()] then
+		return true
 	end
 end
 
 function OnPlayerSpawned(Player)
-	if mobid[Player:GetName()] ~= nil then
-		Player:SetVisible(false)
+	if DisguiseFor[Player:GetUUID()] ~= nil then
+		DestroyDisguise(Player)
+		Player:SendMessageInfo("You have been undisguised due to respawning")
 	end
 end
 
 function OnPlayerDestroyed(Player)
-	if mobid[Player:GetName()] ~= nil then
-		Player:GetWorld():DoWithEntityByID(mobid[Player:GetName()], cEntity.Destroy)
-		Player:SetVisible(true)
-		mobid[Player:GetName()] = nil
+	if DisguiseFor[Player:GetUUID()] ~= nil then
+		DestroyDisguise(Player)
 	end
 end

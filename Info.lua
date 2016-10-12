@@ -1,11 +1,8 @@
--- Info.lua
-
--- Implements the g_PluginInfo standard plugin description
-
-g_PluginInfo =
-{
+g_PluginInfo = {
 	Name = "DisguiseCraft",
-	Version = "1",
+	Version = "2",
+	Date = "2016-10-12",
+	SourceLocation = "https://github.com/mathiascode/DisguiseCraft",
 	Description = [[Plugin for Cuberite that allows you to disguise as an entity.]],
 
 	Commands =

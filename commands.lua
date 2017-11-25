@@ -30,7 +30,7 @@ function HandleDisguiseCommand(Split, Player)
 		if EntityString == "arrow" then
 			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 60, Player, Origin, Speed)
 		elseif EntityString == "boat" then
-			DisguiseFor[Player:GetUUID()] = World:SpawnBoat(X + 0.1, Y, Z + 0.1)
+			DisguiseFor[Player:GetUUID()] = World:SpawnBoat(Vector3d(X + 0.1, Y, Z + 0.1), cBoat.bmOak)
 		elseif EntityString == "egg" then
 			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 62, Player, Origin, Speed)
 		elseif EntityString == "enderpearl" then

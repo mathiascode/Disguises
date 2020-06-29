@@ -28,37 +28,37 @@ function HandleDisguiseCommand(Split, Player)
 		end
 
 		if EntityString == "arrow" then
-			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 60, Player, Origin, Speed)
+			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, cProjectileEntity.pkArrow, Player, Origin, Speed)
 		elseif EntityString == "boat" then
 			DisguiseFor[Player:GetUUID()] = World:SpawnBoat(Vector3d(X + 0.1, Y, Z + 0.1), cBoat.bmOak)
 		elseif EntityString == "egg" then
-			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 62, Player, Origin, Speed)
+			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, cProjectileEntity.pkEgg, Player, Origin, Speed)
 		elseif EntityString == "enderpearl" then
-			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 65, Player, Origin, Speed)
+			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, cProjectileEntity.pkEnderPearl, Player, Origin, Speed)
 		elseif EntityString == "expbottle" then
-			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 75, Player, Origin, Speed)
+			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, cProjectileEntity.pkExpBottle, Player, Origin, Speed)
 		elseif EntityString == "fireball" then
-			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 63, Player, Origin, Speed)
+			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, cProjectileEntity.pkGhastFireball, Player, Origin, Speed)
 		elseif EntityString == "firecharge" then
-			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 64, Player, Origin, Speed)
+			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, cProjectileEntity.pkFireCharge, Player, Origin, Speed)
 		elseif EntityString == "giant" or EntityString == "ghast" then
 			DisguiseFor[Player:GetUUID()] = World:SpawnMob(X + 1.5, Y, Z + 1.5, MobType, IsBaby)
 		elseif EntityString == "minecart" then
-			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, 328)
+			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, E_ITEM_MINECART)
 		elseif EntityString == "minecartchest" then
-			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, 342)
+			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, E_ITEM_CHEST_MINECART)
 		elseif EntityString == "minecartfurnace" then
-			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, 343)
+			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, E_ITEM_FURNACE_MINECART)
 		elseif EntityString == "minecarthopper" then
-			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, 408)
+			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, E_ITEM_MINECART_WITH_HOPPER)
 		elseif EntityString == "minecarttnt" then
-			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, 407)
+			DisguiseFor[Player:GetUUID()] = World:SpawnMinecart(X, Y, Z, E_ITEM_MINECART_WITH_TNT)
 		elseif EntityString == "snowball" then
-			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 61, Player, Origin, Speed)
+			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, cProjectileEntity.pkSnowball, Player, Origin, Speed)
 		elseif EntityString == "splashpotion" then
-			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 73, Player, Origin, Speed)
+			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, cProjectileEntity.pkSplashPotion, Player, Origin, Speed)
 		elseif EntityString == "witherskull" then
-			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, 66, Player, Origin, Speed)
+			DisguiseFor[Player:GetUUID()] = World:CreateProjectile(X, Y, Z, cProjectileEntity.pkWitherSkull, Player, Origin, Speed)
 		elseif MobType ~= mtInvalidType then
 			DisguiseFor[Player:GetUUID()] = World:SpawnMob(X, Y, Z, MobType, IsBaby)
 		else
